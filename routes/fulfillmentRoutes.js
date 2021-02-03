@@ -70,10 +70,37 @@ module.exports = (app) => {
 				},
 				function (err, semester) {
 					if (semester) {
-						let output = `Here your ${semester.year} year ${semester.sem} semester results. ${semester.results}`;
-						agent.add(output);
-					} else{
-						agent.add("Results for that exam is not released yet or you haven't completed it yet.")
+						if (semester.year === 1 && semester.semester === 1) {
+							let output = `Here your ${semester.year}st year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 1 && semester.semester === 2) {
+							let output = `Here your ${semester.year}st year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 2 && semester.semester === 1) {
+							let output = `Here your ${semester.year}nd year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 2 && semester.semester === 2) {
+							let output = `Here your ${semester.year}nd year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 3 && semester.semester === 1) {
+							let output = `Here your ${semester.year}rd year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 3 && semester.semester === 2) {
+							let output = `Here your ${semester.year}rd year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 4 && semester.semester === 1) {
+							let output = `Here your ${semester.year}th year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(output);
+						} else if (semester.year === 4 && semester.semester === 2) {
+							let output = `Here your ${semester.year}th year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(output);
+						} else{
+							agent.add("I dont know whats goin on")
+						}
+					} else {
+						agent.add(
+							"Results for that exam is not released yet or you haven't completed it yet."
+						);
 					}
 				}
 			);
