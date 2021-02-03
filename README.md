@@ -1,2 +1,2 @@
-# chatbot
-Student Information Chatbot
+# React-Chatbot
+Student information chatbot with Dialogflow
