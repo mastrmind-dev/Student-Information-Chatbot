@@ -70,6 +70,8 @@ module.exports = (app) => {
 				},
 				function (err, semester) {
 					if (semester) {
+						let output = `Here your ${semester.year} year ${semester.sem} semester results. ${semester.results}`;
+						agent.add(output);
 					} else{
 						agent.add("Results for that exam is not released yet or you haven't completed it yet.")
 					}
