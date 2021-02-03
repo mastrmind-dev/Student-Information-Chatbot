@@ -12,8 +12,6 @@ const Demand = mongoose.model("demand");
 const Coupon = mongoose.model("coupon");
 const Result = mongoose.model("result");
 
-const saveIndexNo = require("./saveIndexNo");
-
 module.exports = (app) => {
 	var indexNo;
 
@@ -60,7 +58,7 @@ module.exports = (app) => {
 			);
 		}
 
-		async function examResult(agent) {
+		async function examResults(agent) {
 			console.log("This is what i want now " + indexNo);
 			await Result.findOne(
 				{
@@ -94,8 +92,8 @@ module.exports = (app) => {
 						} else if (semester.year === 4 && semester.semester === 2) {
 							let output = `Here your ${semester.year}th year ${semester.semester}nd semester results. ${semester.results}`;
 							agent.add(output);
-						} else{
-							agent.add("I dont know whats goin on")
+						} else {
+							agent.add("I dont know whats goin on");
 						}
 					} else {
 						agent.add(
@@ -106,12 +104,28 @@ module.exports = (app) => {
 			);
 		}
 
+		async function examResultsByYear(agent) {
+			await Result.findOne(
+				{
+					year: agent.parameters.year,
+					semester: 2
+				},
+				function (err, year) {
+					if (year.year === 1) {
+						let output = `Here your ${year.year}st year ${year.semester}st semester results. ${year.results}`;
+						agent.add(output);
+					}
+				}
+			);
+		}
+
 		let intentMap = new Map();
 
 		intentMap.set("Default Fallback Intent", fallback);
 		intentMap.set("snoopy", snoopy);
 		intentMap.set("learn courses", learn);
-		intentMap.set("ExamResultsNoDetails", examResult);
+		intentMap.set("ExamResultsNoDetails", examResults);
+		intentMap.set("ExamResultsWithYear", examResultsByYear);
 
 		agent.handleRequest(intentMap);
 	});

@@ -343,7 +343,7 @@ class Chatbot extends Component {
 						ref={(ref) => {
 							this.idleTimer = ref;
 						}}
-						timeout={600000000}
+						timeout={10000}
 						onActive={this.handleOnActive}
 						onIdle={this.handleOnIdle}
 						onAction={this.handleOnAction}
