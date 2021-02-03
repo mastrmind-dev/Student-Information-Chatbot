@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+</html>
+<script>
+	import Cookies from "universal-cookie";
+
+	const cookies = new Cookies(req.headers.cookie);
+
+	console.log(cookies.get("myCat")); // Pacman or undefined if not set yet
+</script>
