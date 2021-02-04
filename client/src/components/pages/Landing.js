@@ -4,7 +4,8 @@ const Landing = () => {
 	return (
 		<div
 			style={{
-                backgroundImage: `url("https://colorlib.com/wp/wp-content/uploads/sites/2/7_university-website-design-1024x683.jpg")`,
+				backgroundColor: "blue",
+				backgroundImage: `url("./Screenshot (85).png")`,
                 height : "100vh",
                 minWidth : "100%",
                 backgroundRepeat : "no-repeat",

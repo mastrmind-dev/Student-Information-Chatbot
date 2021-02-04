@@ -8,7 +8,7 @@ const IdleTimeOutModal = (props) => {
   const [noAction, setNoAction] = useState(true);
 
   //const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => {setOpen(false); window.location.reload(false)};
+  const onCloseModal = () => {setOpen(false)}// window.location.reload(false)};
 
   const userDidNothing = (action) =>{
     timer = setTimeout(() => {props.handleLogout(!action)}, 10000)
@@ -27,9 +27,9 @@ const IdleTimeOutModal = (props) => {
   return (
     <div>
       <div>
-      <Modal open={open} onClose={onCloseModal} top>
+      <Modal open={open} onClose={onCloseModal} closeOnOverlayClick={false} top>
         <h5 style={{color:"red"}}>Chatbot will be closed after 10 seconds from now. You want to stay?</h5>
-        <button className="button" style={{width: "50%"}} onClick={() => {props.handleLogout(false); logout()}}>
+        <button className="button" style={{width: "50%", backgroundColor: '#03d3fc'}} onClick={() => {props.handleLogout(false); logout()}}>
           Logout
         </button>
         <button className="button" style={{width: "50%"}} onClick={() => {props.handleStay(false); stay()}}>

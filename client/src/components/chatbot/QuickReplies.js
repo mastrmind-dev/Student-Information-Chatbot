@@ -31,7 +31,7 @@ class QuickReplies extends Component {
 				<div className="card-panel grey lighten-5 z-depth-1">
 					<div className="row valign-wrapper">
 						<div className="col s12">
-							<a className="btn-floating btn-large waves-effect waves-light red">
+							<a className="btn-floating btn-large waves-effect waves-light lightblue">
 								{this.props.speaks}
 							</a>
 						</div>

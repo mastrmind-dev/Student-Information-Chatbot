@@ -23,6 +23,7 @@ class Chatbot extends Component {
 
 		this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
 		this._handleQuickReplyPayload = this._handleQuickReplyPayload.bind(this);
+		this.refreshPage = this.refreshPage.bind(this)
 
 		this.idleTimer = null;
 		this.handleOnAction = this.handleOnAction.bind(this);
@@ -66,14 +67,14 @@ class Chatbot extends Component {
 			console.log(this.state.userEmail);
 			for (let msg of res.data.fulfillmentMessages) {
 				says = {
-					speaks: "bot",
+					speaks: "chaty",
 					msg: msg,
 				};
 				this.setState({ messages: [...this.state.messages, says] });
 			}
 		} catch (e) {
 			says = {
-				speaks: "bot",
+				speaks: "chaty",
 				msg: {
 					text: {
 						text:
@@ -96,7 +97,7 @@ class Chatbot extends Component {
 
 		for (let msg of res.data.fulfillmentMessages) {
 			let says = {
-				speaks: "bot",
+				speaks: "chaty",
 				msg: msg,
 			};
 
@@ -189,7 +190,7 @@ class Chatbot extends Component {
 							<div className="col s2">
 								<a
 									href="/"
-									className="btn-floating btn-large waves-effect waves-light red"
+									className="btn-floating btn-large waves-effect waves-light lightblue"
 								>
 									{message.speaks}
 								</a>
@@ -264,8 +265,8 @@ class Chatbot extends Component {
 		this.setState({ userEmail: userEmailFromChild });
 	};
 
-	refreshPage = () => {
-		this.setState({
+	async refreshPage() {
+		await this.setState({
 			clickLogoutButton: true,
 			isLogin: false,
 		});
@@ -343,16 +344,16 @@ class Chatbot extends Component {
 						ref={(ref) => {
 							this.idleTimer = ref;
 						}}
-						timeout={10000}
+						timeout={10000000}
 						onActive={this.handleOnActive}
 						onIdle={this.handleOnIdle}
 						onAction={this.handleOnAction}
 						debounce={250}
 					/>
-					<nav style={{ borderTopLeftRadius: 0, borderTopRightRadius: 50 }}>
+					<nav style={{ borderTopLeftRadius: 0, borderTopRightRadius: 50, backgroundColor: '#2dbaed' }}>
 						<div className="nav-wrapper">
-							<a className="brand-logo" style={{ marginLeft: "3%" }}>
-								ChatBot
+							<a className="brand-logo" style={{ marginLeft: "3%", fontFamily:"fantasy" }}>
+								Chaty
 							</a>
 							<ul id="nav-mobile" className="right hide-on-med-and-down">
 								<li>
@@ -364,6 +365,7 @@ class Chatbot extends Component {
 											border: "1px solid lightgrey",
 											borderTopRightRadius: 13,
 											borderBottomLeftRadius: 13,
+											backgroundColor: "#6a52e3"
 										}}
 										onClick={this.refreshPage}
 									>
@@ -435,10 +437,10 @@ class Chatbot extends Component {
 					}}
 					className="z-depth-3"
 				>
-					<nav style={{ borderTopLeftRadius: 0, borderTopRightRadius: 50 }}>
+					<nav style={{ borderTopLeftRadius: 0, borderTopRightRadius: 50, backgroundColor: '#2dbaed' }}>
 						<div className="nav-wrapper">
-							<a className="brand-logo" style={{ marginLeft: "3%" }}>
-								ChatBot
+							<a className="brand-logo" style={{ marginLeft: "3%", fontFamily:"fantasy" }}>
+								Chaty
 							</a>
 							<ul id="nav-mobile" className="right hide-on-med-and-down">
 								<li>
@@ -479,7 +481,7 @@ class Chatbot extends Component {
 					>
 						<ul
 							id="nav-mobile"
-							className="right btn-floating btn-large waves-effect waves-light red z-depth-3"
+							className="right btn-floating btn-large waves-effect waves-light sky-blue z-depth-3"
 						>
 							<li>
 								<a
