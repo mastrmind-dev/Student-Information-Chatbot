@@ -16,11 +16,11 @@ const Message = (props) => {
 						</div>
 					)}
 					{props.speaks === "chaty" ? (
-						<div className="col s10" style={{ textAlign: "left" }}>
+						<div className="col s10" style={{ textAlign: "left", backgroundColor:"skyblue" }}>
 							<span className="black-text">{props.text}</span>
 						</div>
 					) : (
-						<div className="col s10" style={{ textAlign: "right" }}>
+						<div className="col s10" style={{ textAlign: "left", float:'right', backgroundColor:"skyblue", marginRight:0 }}>
 							<span className="black-text">{props.text}</span>
 						</div>
 					)}
