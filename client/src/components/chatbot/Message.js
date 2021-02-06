@@ -5,8 +5,8 @@ const Message = (props) => {
 		<div className="chatbox" style={{ marginTop: 10 }}>
 			<div>
 				{props.speaks === "chaty" && (
-					<div className="row valign-wrapper">
-						<div className="col s2">
+					<div className="row">
+						<div className="col s2 left">
 							<a
 								href="/"
 								className="btn-floating btn-large waves-effect waves-light yellow"
@@ -16,7 +16,7 @@ const Message = (props) => {
 							</a>
 						</div>
 						<div
-							className="col s10"
+							className="col left"
 							style={{
 								marginRight: 10,
 								backgroundColor: "darkblue",
@@ -24,6 +24,7 @@ const Message = (props) => {
 								borderRadius: 10,
 								textAlign: "left",
 								marginLeft: 15,
+								maxWidth: "75%",
 							}}
 						>
 							<span className="white-text">{props.text}</span>
@@ -33,20 +34,8 @@ const Message = (props) => {
 			</div>
 			<div>
 				{props.speaks === "user" && (
-					<div className="row valign-wrapper">
-						<div
-							className="col s10"
-							style={{
-								marginLeft:10,
-								textAlign: "right",
-								padding: 5,
-								backgroundColor: "darkblue",
-								borderRadius: 10,
-							}}
-						>
-							<span className="white-text">{props.text}</span>
-						</div>
-						<div className="col s2" style={{ marginRight: 18 }}>
+					<div className="row">
+						<div className="col s2 right" style={{ marginRight: 18 }}>
 							<a
 								href="/"
 								className="btn-floating btn-large waves-effect waves-light"
@@ -54,6 +43,19 @@ const Message = (props) => {
 							>
 								{props.speaks}
 							</a>
+						</div>
+						<div
+							className="col right"
+							style={{
+								marginLeft: 10,
+								textAlign: "right",
+								padding: 5,
+								backgroundColor: "darkblue",
+								borderRadius: 10,
+								maxWidth: "75%",
+							}}
+						>
+							<span className="white-text">{props.text}</span>
 						</div>
 					</div>
 				)}
