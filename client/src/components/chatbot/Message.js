@@ -2,8 +2,8 @@ import React from "react";
 
 const Message = (props) => {
 	return (
-		<div className="col s12 m8 offset-m2 l6 offset-l3">
-			<div className="card-panel grey lighten-5 z-depth-1">
+		<div className="s">
+			<div className="" style={{marginTop:10}}>
 				<div className="row valign-wrapper">
 					{props.speaks === "chaty" && (
 						<div className="col s2">
@@ -11,22 +11,22 @@ const Message = (props) => {
 								href="/"
 								className="btn-floating btn-large waves-effect waves-light lightblue"
 							>
-								Chaty
+								{props.speaks}
 							</a>
 						</div>
 					)}
 					{props.speaks === "chaty" ? (
-						<div className="col s10" style={{ textAlign: "left", backgroundColor:"skyblue" }}>
-							<span className="black-text">{props.text}</span>
+						<div className="col s10" style={{marginRight:10, backgroundColor:"darkblue", padding:5, borderRadius:10, textAlign: "left", marginLeft:15 }}>
+							<span className="white-text">{props.text}</span>
 						</div>
 					) : (
-						<div className="col s10" style={{ textAlign: "left", float:'right', backgroundColor:"skyblue", marginRight:0 }}>
-							<span className="black-text">{props.text}</span>
+						<div className="col s10 center" style={{marginLeft:'10px', textAlign: "right", padding:5, backgroundColor:"darkblue", borderRadius:10}}>
+							<span className="white-text">{props.text}</span>
 						</div>
 					)}
 
 					{props.speaks === "user" && (
-						<div className="col s2">
+						<div className="col s2" style={{marginRight:18}}>
 							<a
 								href="/"
 								className="btn-floating btn-large waves-effect waves-light blue"
@@ -37,7 +37,7 @@ const Message = (props) => {
 					)}
 				</div>
 			</div>
-		</div>
+		</div>	
 	);
 };
 
