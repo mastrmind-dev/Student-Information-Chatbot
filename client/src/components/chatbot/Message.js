@@ -2,14 +2,15 @@ import React from "react";
 
 const Message = (props) => {
 	return (
-		<div className="s">
+		<div className="white">
 			<div className="" style={{marginTop:10}}>
 				<div className="row valign-wrapper">
 					{props.speaks === "chaty" && (
 						<div className="col s2">
 							<a
 								href="/"
-								className="btn-floating btn-large waves-effect waves-light lightblue"
+								className="btn-floating btn-large waves-effect waves-light yellow"
+								style={{color:"white"}}
 							>
 								{props.speaks}
 							</a>
@@ -29,7 +30,8 @@ const Message = (props) => {
 						<div className="col s2" style={{marginRight:18}}>
 							<a
 								href="/"
-								className="btn-floating btn-large waves-effect waves-light blue"
+								className="btn-floating btn-large waves-effect waves-light"
+								style={{backgroundColor:'#5ecc0a'}}
 							>
 								{props.speaks}
 							</a>

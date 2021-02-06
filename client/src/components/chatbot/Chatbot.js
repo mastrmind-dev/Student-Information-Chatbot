@@ -386,7 +386,7 @@ class Chatbot extends Component {
 					</nav>
 					<div
 						id="chatbot"
-						style={{ height: 388, width: "100%", overflow: "auto" }}
+						style={{ height: 388, width: "100%", overflow: "auto", backgroundColor:"white" }}
 					>
 						{this.renderMessages(this.state.messages)}
 						<div
