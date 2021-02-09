@@ -41,8 +41,6 @@ class Chatbot extends Component {
 			showModal: false,
 		};
 
-		var timer;
-
 		if (cookies.get("userID") === undefined) {
 			cookies.set("userID", this.state.userEmail, { path: "/" });
 		}
@@ -185,16 +183,8 @@ class Chatbot extends Component {
 		) {
 			return (
 				<div key={i}>
-					<div className="card-panel grey lighten-5 z-depth-1 valign-wrapper">
+					<div className="">
 						<div style={{ overflow: "hidden" }}>
-							<div className="col s2">
-								<a
-									href="/"
-									className="btn-floating btn-large waves-effect waves-light lightblue"
-								>
-									{message.speaks}
-								</a>
-							</div>
 							<div
 								style={{
 									height: "auto",
@@ -305,6 +295,7 @@ class Chatbot extends Component {
 	}
 
 	render() {
+		{/**showing prompted logout message*/}
 		if (this.state.showModal) {
 			return (
 				<div>
@@ -321,6 +312,7 @@ class Chatbot extends Component {
 					></div>
 				</div>
 			);
+			{/**logged in */}
 		} else if (this.state.showBot && this.state.isLogin) {
 			return (
 				<div
@@ -386,7 +378,8 @@ class Chatbot extends Component {
 					</nav>
 					<div
 						id="chatbot"
-						style={{ height: 388, width: "100%", overflow: "auto", backgroundColor:"white" }}
+						style={{ height: 388, width: "100%", overflow: "auto", backgroundColor:"white",
+						overflowX:'hidden' }}
 					>
 						{this.renderMessages(this.state.messages)}
 						<div
@@ -416,7 +409,9 @@ class Chatbot extends Component {
 					</div>
 				</div>
 			);
-		} else if (
+					{/**open but not logged*/}
+		}
+		else if (
 			this.state.showBot &&
 			this.state.isLogin == false &&
 			this.state.clickLogoutButton == false
@@ -461,6 +456,7 @@ class Chatbot extends Component {
 					/>
 				</div>
 			);
+					{/**logout button is clicked*/}
 		} else if (this.state.clickLogoutButton) {
 			return (
 				<div>
@@ -469,6 +465,7 @@ class Chatbot extends Component {
 				</div>
 			);
 		} else {
+					{/**just chatbot icon*/}
 			return (
 				<div>
 					<div

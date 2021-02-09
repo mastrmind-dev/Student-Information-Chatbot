@@ -29,9 +29,9 @@ class QuickReplies extends Component {
 		return (
 			<div className="col s12 m8 offset-m2 16 offset-13">
 				<div className="">
-					<div className="row">
+					<div className="row" style={{marginTop:10}}>
 						<div className="col s2 left">
-							<a className="btn-floating btn-large waves-effect waves-light blue">
+							<a className="btn-floating btn-large waves-effect waves-light blue" style={{marginLeft:11}}>
 								{this.props.speaks}
 							</a>
 						</div>
@@ -39,8 +39,8 @@ class QuickReplies extends Component {
 						<div id="quick-replies"
 							className="col left"
 							style={{
-								marginTop: '19px',
-								marginRight: 10,
+								marginTop:'19px',
+								marginLeft:"23px",
 								backgroundColor: "darkblue",
 								padding: 5,
 								borderTopRightRadius: 10,
@@ -48,7 +48,6 @@ class QuickReplies extends Component {
 								borderTopLeftRadius: 0,
 								borderBottomLeftRadius: 10,
 								textAlign: "left",
-								marginLeft: 15,
 								maxWidth: "75%",
 							}}>
 							{this.props.text && <p style={{color:'white'}}>{this.props.text.stringValue}</p>}
