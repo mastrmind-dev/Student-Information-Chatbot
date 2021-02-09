@@ -9,7 +9,7 @@ const Message = (props) => {
 						<div className="col s2 left">
 							<a
 								href="/"
-								className="btn-floating btn-large waves-effect waves-light yellow"
+								className="btn-floating btn-large waves-effect waves-light blue"
 								style={{ color: "white" }}
 							>
 								{props.speaks}
@@ -18,10 +18,14 @@ const Message = (props) => {
 						<div
 							className="col left"
 							style={{
+								marginTop: '19px',
 								marginRight: 10,
 								backgroundColor: "darkblue",
 								padding: 5,
-								borderRadius: 10,
+								borderTopRightRadius: 10,
+								borderBottomRightRadius: 10,
+								borderTopLeftRadius: 0,
+								borderBottomLeftRadius: 10,
 								textAlign: "left",
 								marginLeft: 15,
 								maxWidth: "75%",
@@ -47,11 +51,15 @@ const Message = (props) => {
 						<div
 							className="col right"
 							style={{
+								marginTop: '20px',
 								marginLeft: 10,
 								textAlign: "right",
 								padding: 5,
 								backgroundColor: "darkblue",
-								borderRadius: 10,
+								borderTopRightRadius: 0,
+								borderBottomRightRadius: 10,
+								borderTopLeftRadius: 10,
+								borderBottomLeftRadius: 10,
 								maxWidth: "75%",
 							}}
 						>
