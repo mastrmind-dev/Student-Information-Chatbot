@@ -28,16 +28,30 @@ class QuickReplies extends Component {
 	render() {
 		return (
 			<div className="col s12 m8 offset-m2 16 offset-13">
-				<div className="card-panel grey lighten-5 z-depth-1">
-					<div className="row valign-wrapper">
-						<div className="col s12">
-							<a className="btn-floating btn-large waves-effect waves-light lightblue">
+				<div className="">
+					<div className="row">
+						<div className="col s2 left">
+							<a className="btn-floating btn-large waves-effect waves-light blue">
 								{this.props.speaks}
 							</a>
 						</div>
 						{/*quick replies button into one line*/}
-						<div id="quick-replies" className="col s10">
-							{this.props.text && <p>{this.props.text.stringValue}</p>}
+						<div id="quick-replies"
+							className="col left"
+							style={{
+								marginTop: '19px',
+								marginRight: 10,
+								backgroundColor: "darkblue",
+								padding: 5,
+								borderTopRightRadius: 10,
+								borderBottomRightRadius: 10,
+								borderTopLeftRadius: 0,
+								borderBottomLeftRadius: 10,
+								textAlign: "left",
+								marginLeft: 15,
+								maxWidth: "75%",
+							}}>
+							{this.props.text && <p style={{color:'white'}}>{this.props.text.stringValue}</p>}
 							{this.renderQuickReplies(this.props.payload)}
 						</div>
 					</div>
