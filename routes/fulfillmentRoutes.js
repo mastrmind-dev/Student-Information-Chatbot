@@ -62,43 +62,56 @@ module.exports = (app) => {
 			console.log("This is what i want now " + indexNo);
 			await Result.findOne(
 				{
-					semester: agent.parameters.sem,
 					year: agent.parameters.year,
+					semester: agent.parameters.sem,
 					indexNo: indexNo,
 				},
-				function (err, semester) {
-					if (semester) {
-						if (semester.year === 1 && semester.semester === 1) {
-							let output = `Here your ${semester.year}st year ${semester.semester}st semester results. ${semester.results}`;
+				function (err, year) {
+					try {
+						if (year.year === 1 && year.semester === 1) {
+							let output = `Here your ${year.year}st year ${year.semester}st semester results`;
 							agent.add(output);
-						} else if (semester.year === 1 && semester.semester === 2) {
-							let output = `Here your ${semester.year}st year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 1 && year.semester === 2) {
+							let output = `Here your ${year.year}st year ${year.semester}nd semester results`;
 							agent.add(output);
-						} else if (semester.year === 2 && semester.semester === 1) {
-							let output = `Here your ${semester.year}nd year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 2 && year.semester === 1) {
+							let output = `Here your ${year.year}nd year ${year.semester}st semester results`;
 							agent.add(output);
-						} else if (semester.year === 2 && semester.semester === 2) {
-							let output = `Here your ${semester.year}nd year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 2 && year.semester === 2) {
+							let output = `Here your ${year.year}nd year ${year.semester}nd semester results`;
 							agent.add(output);
-						} else if (semester.year === 3 && semester.semester === 1) {
-							let output = `Here your ${semester.year}rd year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 3 && year.semester === 1) {
+							let output = `Here your ${year.year}rd year ${year.semester}st semester results`;
 							agent.add(output);
-						} else if (semester.year === 3 && semester.semester === 2) {
-							let output = `Here your ${semester.year}rd year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 3 && year.semester === 2) {
+							let output = `Here your ${year.year}rd year ${year.semester}nd semester results`;
 							agent.add(output);
-						} else if (semester.year === 4 && semester.semester === 1) {
-							let output = `Here your ${semester.year}th year ${semester.semester}st semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 4 && year.semester === 1) {
+							let output = `Here your ${year.year}th year ${year.semester}st semester results`;
 							agent.add(output);
-						} else if (semester.year === 4 && semester.semester === 2) {
-							let output = `Here your ${semester.year}th year ${semester.semester}nd semester results. ${semester.results}`;
+							agent.add(year.results)
+						} else if (year.year === 4 && year.semester === 2) {
+							let output = `Here your ${year.year}th year ${year.semester}nd semester results`;
 							agent.add(output);
+							agent.add(year.results)
 						} else {
-							agent.add("I dont know whats goin on");
+							agent.add("Invalid year or semester in try block!");
 						}
-					} else {
-						agent.add(
-							"Results for that exam is not released yet or you haven't completed it yet."
-						);
+					} catch (error) {
+						if(indexNo === 'a@a.lk'){
+							agent.add("Please sign in as a student to know your results!");
+						} else if(agent.parameters.year <= 4 && agent.parameters.semester <= 2){
+							agent.add("You haven't completed that exam yet or the results are not yet released!");
+						}
+						else{
+							agent.add('Invalid year or semester!');
+						}
 					}
 				}
 			);
@@ -108,15 +121,116 @@ module.exports = (app) => {
 			await Result.findOne(
 				{
 					year: agent.parameters.year,
-					semester: 2
+					semester: agent.parameters.semester,
+					indexNo:indexNo,
 				},
 				function (err, year) {
-					if (year.year === 1) {
-						let output = `Here your ${year.year}st year ${year.semester}st semester results. ${year.results}`;
-						agent.add(output);
+					try {
+						if (year.year === 1 && year.semester === 1) {
+							let output = `Here your ${year.year}st year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 1 && year.semester === 2) {
+							let output = `Here your ${year.year}st year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 2 && year.semester === 1) {
+							let output = `Here your ${year.year}nd year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 2 && year.semester === 2) {
+							let output = `Here your ${year.year}nd year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 3 && year.semester === 1) {
+							let output = `Here your ${year.year}rd year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 3 && year.semester === 2) {
+							let output = `Here your ${year.year}rd year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 4 && year.semester === 1) {
+							let output = `Here your ${year.year}th year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 4 && year.semester === 2) {
+							let output = `Here your ${year.year}th year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else {
+							agent.add("Invalid year or semester in try block!");
+						}
+					} catch (error) {
+						if(indexNo === 'a@a.lk'){
+							agent.add("Please sign in as a student to know your results!");
+						} else if(agent.parameters.year <= 4 && agent.parameters.semester <= 2){
+							agent.add("You haven't completed that exam yet or the results are not yet released!");
+						}
+						else{
+							agent.add('Invalid year or semester!');
+						}
 					}
 				}
 			);
+		}
+
+		async function examResultsByYearAndSemester(agent){
+			await Result.findOne(
+				{
+					year: agent.parameters.year,
+					semester: agent.parameters.semester,
+					indexNo:indexNo,
+				},
+				function (err, year) {
+					//console.log(year.year + ' and ' + year.semester)
+					try {
+						if (year.year === 1 && year.semester === 1) {
+							let output = `Here your ${year.year}st year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 1 && year.semester === 2) {
+							let output = `Here your ${year.year}st year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 2 && year.semester === 1) {
+							let output = `Here your ${year.year}nd year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 2 && year.semester === 2) {
+							let output = `Here your ${year.year}nd year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 3 && year.semester === 1) {
+							let output = `Here your ${year.year}rd year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 3 && year.semester === 2) {
+							let output = `Here your ${year.year}rd year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 4 && year.semester === 1) {
+							let output = `Here your ${year.year}th year ${year.semester}st semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else if (year.year === 4 && year.semester === 2) {
+							let output = `Here your ${year.year}th year ${year.semester}nd semester results`;
+							agent.add(output);
+							agent.add(year.results)
+						} else {
+							agent.add("Invalid year or semester in try block!");
+						}
+					} catch (error) {
+						if(indexNo === 'a@a.lk'){
+							agent.add("Please sign in as a student to know your results!");
+						} else if(agent.parameters.year <= 4 && agent.parameters.semester <= 2){
+							agent.add("You haven't completed that exam yet or the results are not yet released!");
+						}
+						else{
+							agent.add('Invalid year or semester!');
+						}
+					}
+				})
 		}
 
 		let intentMap = new Map();
@@ -126,6 +240,7 @@ module.exports = (app) => {
 		intentMap.set("learn courses", learn);
 		intentMap.set("ExamResultsNoDetails", examResults);
 		intentMap.set("ExamResultsWithYear", examResultsByYear);
+		intentMap.set("ExamResultsWithYearAndSemester", examResultsByYearAndSemester);
 
 		agent.handleRequest(intentMap);
 	});

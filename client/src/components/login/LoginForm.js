@@ -10,7 +10,7 @@ const Login = (props) => {
 	const [password, setPassword] = useState("");
 	const [emailError, setEmailError] = useState("");
 	const [passwordError, setPasswordError] = useState("");
-	const [hasAccount, setHasAccount] = useState(false);
+	const [hasAccount] = useState(false);
 
 	const test = (indexNo) => {
 		console.log("Test is executed!");
@@ -66,7 +66,7 @@ const Login = (props) => {
 			});
 	}; */
 
-	const guestSignIn = (fromFireBaseLogin) => {
+	const guestSignIn = () => {
 		clearErrors();
 		fire
 			.auth()
@@ -102,7 +102,7 @@ const Login = (props) => {
 
 	useEffect(() => {
 		authListener();
-	}, [authListener]);
+	});
 
 	return (
 		<div>

@@ -31,7 +31,7 @@ class QuickReplies extends Component {
 				<div className="">
 					<div className="row" style={{marginTop:10}}>
 						<div className="col s2 left">
-							<a className="btn-floating btn-large waves-effect waves-light blue" style={{marginLeft:11}}>
+							<a href="#" className="btn-floating btn-large waves-effect waves-light blue" style={{marginLeft:11}}>
 								{this.props.speaks}
 							</a>
 						</div>

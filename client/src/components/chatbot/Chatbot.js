@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios/index";
 import Cookies from "universal-cookie";
-import { v4 as uuid } from "uuid";
+//import { v4 as uuid } from "uuid";
 import { withRouter } from "react-router-dom";
 import IdleTimer from "react-idle-timer";
 
@@ -88,25 +88,29 @@ class Chatbot extends Component {
 	}
 
 	async df_event_query(eventName) {
-		const res = await axios.post("/api/df_event_query", {
-			event: eventName,
-			userId: cookies.get("userID"),
-		});
-
-		for (let msg of res.data.fulfillmentMessages) {
-			let says = {
-				speaks: "chaty",
-				msg: msg,
-			};
-
-			this.setState({ messages: [...this.state.messages, says] });
+		try {
+			const res = await axios.post("/api/df_event_query", {
+				event: eventName,
+				userId: cookies.get("userID"),
+			});
+	
+			for (let msg of res.data.fulfillmentMessages) {
+				let says = {
+					speaks: "chaty",
+					msg: msg,
+				};
+	
+				this.setState({ messages: [...this.state.messages, says] });
+			}
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
 	async componentDidMount() {
 		this.logoutWhenClosing();
 		this.df_event_query("Welcome");
-		if (window.location.pathname === "/shop" && !this.state.shopWelcomeSent) {
+		/**if (window.location.pathname === "/shop" && !this.state.shopWelcomeSent) {
 			await this.resolveAfterXSeconds(2);
 			this.df_event_query("WELCOME_SHOP");
 			this.setState({ shopWelcomeSent: true });
@@ -120,7 +124,7 @@ class Chatbot extends Component {
 				this.df_event_query("WELCOME_SHOP");
 				this.setState({ shopWelcomeSent: true });
 			}
-		});
+		}); */
 	}
 
 	resolveAfterXSeconds(x) {
@@ -295,7 +299,7 @@ class Chatbot extends Component {
 	}
 
 	render() {
-		{/**showing prompted logout message*/}
+		/**showing prompted logout message*/
 		if (this.state.showModal) {
 			return (
 				<div>
@@ -312,8 +316,9 @@ class Chatbot extends Component {
 					></div>
 				</div>
 			);
-			{/**logged in */}
-		} else if (this.state.showBot && this.state.isLogin) {
+		}
+		/**logged in */
+		else if (this.state.showBot && this.state.isLogin) {
 			return (
 				<div
 					style={{
@@ -399,7 +404,7 @@ class Chatbot extends Component {
 								borderBottomLeftRadius: 50,
 							}}
 						>
-							<input style={{color : "white", width : '95%', marginLeft : 20}}
+							<input style={{color : "white", width : '90%', marginLeft : 28, marginBottom:15}}
 								placeholder="type a message: "
 								type="text"
 								onKeyPress={this._handleInputKeyPress}
@@ -409,12 +414,12 @@ class Chatbot extends Component {
 					</div>
 				</div>
 			);
-					{/**open but not logged*/}
 		}
+		/**open but not logged*/
 		else if (
 			this.state.showBot &&
-			this.state.isLogin == false &&
-			this.state.clickLogoutButton == false
+			this.state.isLogin === false &&
+			this.state.clickLogoutButton === false
 		) {
 			return (
 				<div
@@ -456,16 +461,18 @@ class Chatbot extends Component {
 					/>
 				</div>
 			);
-					{/**logout button is clicked*/}
-		} else if (this.state.clickLogoutButton) {
+		}
+		/**logout button is clicked*/
+		else if (this.state.clickLogoutButton) {
 			return (
 				<div>
 					<Login logout={true} />
 					{this.resetLogout()}
 				</div>
 			);
-		} else {
-					{/**just chatbot icon*/}
+		}
+		/**just chatbot icon*/
+		else {
 			return (
 				<div>
 					<div

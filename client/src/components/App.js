@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Shop from "./shop/Shop";
-import Header from "./Header";
+//import Header from "./Header";
 import Chatbot from "./chatbot/Chatbot";
 
 const App = () => {
