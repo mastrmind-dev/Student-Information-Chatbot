@@ -12,7 +12,7 @@ const FireBaseLogin = (props) => {
 					value={props.email}
 					onChange={(e) => props.setEmail(e.target.value)}
 				/>
-				<p className="errorMessage">{props.emailError}</p>
+				<p className="errorMessage" style={{color:'red'}}>{props.emailError}</p>
 
 				<label>Password</label>
 				<input
@@ -21,7 +21,7 @@ const FireBaseLogin = (props) => {
 					value={props.password}
 					onChange={(e) => props.setPassword(e.target.value)}
 				/>
-				<p className="errorMessage">{props.passwordError}</p>
+				<p className="errorMessage" style={{color:'red'}}>{props.passwordError}</p>
 				<div className="btnContainer">
 					{props.hasAccount ? (
 						<></>

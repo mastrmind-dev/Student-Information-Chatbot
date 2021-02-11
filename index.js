@@ -14,6 +14,7 @@ require("./models/Registration");
 require("./models/Demand");
 require("./models/Coupons");
 require("./models/Results");
+require("./models/Degrees");
 
 app.use(bodyParser.json());
 

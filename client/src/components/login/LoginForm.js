@@ -39,10 +39,10 @@ const Login = (props) => {
 					case "auth/invalid-email":
 					case "auth/user-disabled":
 					case "auth/user-not-found":
-						setEmailError(err.message);
+						setEmailError("Invalid Username!");
 						break;
 					case "auth/wrong-password":
-						setPasswordError(err.message);
+						setPasswordError("Incorrect Password!");
 						break;
 				}
 			});

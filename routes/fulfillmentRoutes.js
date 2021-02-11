@@ -11,6 +11,7 @@ const mongoose = require("mongoose");
 const Demand = mongoose.model("demand");
 const Coupon = mongoose.model("coupon");
 const Result = mongoose.model("result");
+const Degree = mongoose.model("degree");
 
 module.exports = (app) => {
 	var indexNo;
@@ -233,6 +234,23 @@ module.exports = (app) => {
 				})
 		}
 
+		
+		/**async function degrees(agent){
+			await Degree.findOne(
+				{
+					faculty: "all",
+				},
+				function (err, faculty) {
+					//console.log(year.year + ' and ' + year.semester)
+					try {
+						agent.add("Those are the degrees that we have.");
+						agent.add(faculty.degrees);
+					} catch (error) {
+						agent.add('Please enter a valid answer!');
+					}
+				})
+		}
+ */
 		let intentMap = new Map();
 
 		intentMap.set("Default Fallback Intent", fallback);
