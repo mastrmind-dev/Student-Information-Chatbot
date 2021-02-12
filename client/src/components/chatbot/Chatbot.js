@@ -194,6 +194,7 @@ class Chatbot extends Component {
 									height: "auto",
 									width: "auto",
 									overflow: "auto",
+									marginBottom: 15
 								}}
 								className="valign-wrapper"
 							>
