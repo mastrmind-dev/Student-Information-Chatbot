@@ -48,7 +48,7 @@ class QuickReplies extends Component {
 								borderTopLeftRadius: 0,
 								borderBottomLeftRadius: 10,
 								textAlign: "left",
-								maxWidth: "75%",
+								maxWidth: "70%",
 							}}>
 							{this.props.text && <p style={{color:'white'}}>{this.props.text.stringValue}</p>}
 							{this.renderQuickReplies(this.props.payload)}

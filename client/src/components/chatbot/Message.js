@@ -10,7 +10,7 @@ const Message = (props) => {
 							<a
 								href="/"
 								className="btn-floating btn-large waves-effect waves-light blue"
-								style={{ color: "white" }}
+								style={{ color: "white", zIndex:1 }}
 							>
 								{props.speaks}
 							</a>

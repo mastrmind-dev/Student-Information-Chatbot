@@ -403,6 +403,7 @@ class Chatbot extends Component {
 								bottom: "0",
 								backgroundColor: "#603bbb",
 								borderBottomLeftRadius: 50,
+								 
 							}}
 						>
 							<input style={{color : "white", width : '90%', marginLeft : 28, marginBottom:15}}

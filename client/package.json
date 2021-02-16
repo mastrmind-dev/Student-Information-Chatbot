@@ -21,6 +21,7 @@
     "react-compound-timer": "^1.2.0",
     "react-dom": "^17.0.1",
     "react-idle-timer": "^4.5.0",
+    "react-linkify": "^1.0.0-alpha",
     "react-micro-modal": "^2.0.2",
     "react-popup": "^0.10.0",
     "react-responsive-modal": "^6.0.0",
