@@ -14,7 +14,7 @@ module.exports = (app) => {
 			);
 			res.send(responses[0].queryResult);
 		} catch (error) {
-			console.log(error)
+			console.log("error")
 		}
 	});
 
@@ -27,7 +27,7 @@ module.exports = (app) => {
 			);
 			res.send(responses[0].queryResult);
 		} catch (error) {
-			console.log(error)
+			console.log("error")
 		}
 	});
 };

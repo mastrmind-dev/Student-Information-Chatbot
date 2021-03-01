@@ -23,7 +23,7 @@ class Chatbot extends Component {
 
 		this._handleInputKeyPress = this._handleInputKeyPress.bind(this);
 		this._handleQuickReplyPayload = this._handleQuickReplyPayload.bind(this);
-		this.refreshPage = this.refreshPage.bind(this)
+		this.refreshPage = this.refreshPage.bind(this);
 
 		this.idleTimer = null;
 		this.handleOnAction = this.handleOnAction.bind(this);
@@ -93,13 +93,13 @@ class Chatbot extends Component {
 				event: eventName,
 				userId: cookies.get("userID"),
 			});
-	
+
 			for (let msg of res.data.fulfillmentMessages) {
 				let says = {
 					speaks: "chaty",
 					msg: msg,
 				};
-	
+
 				this.setState({ messages: [...this.state.messages, says] });
 			}
 		} catch (error) {
@@ -164,6 +164,10 @@ class Chatbot extends Component {
 			case "training_masterclass":
 				this.df_event_query("MASTERCLASS");
 				break;
+			case "DegreesOfAllFaculties":
+				this.df_text_query(text);
+				this.df_event_query("ALLDEGREES");
+				break;
 			default:
 				this.df_text_query(text);
 				break;
@@ -194,7 +198,7 @@ class Chatbot extends Component {
 									height: "auto",
 									width: "auto",
 									overflow: "auto",
-									marginBottom: 15
+									marginBottom: 15,
 								}}
 								className="valign-wrapper"
 							>
@@ -266,7 +270,7 @@ class Chatbot extends Component {
 			isLogin: false,
 		});
 		window.location.reload(false);
-	};
+	}
 
 	handleOnAction(event) {
 		console.log("ssomeee");
@@ -317,9 +321,8 @@ class Chatbot extends Component {
 					></div>
 				</div>
 			);
-		}
-		/**logged in */
-		else if (this.state.showBot && this.state.isLogin) {
+		} else if (this.state.showBot && this.state.isLogin) {
+			/**logged in */
 			return (
 				<div
 					style={{
@@ -348,9 +351,18 @@ class Chatbot extends Component {
 						onAction={this.handleOnAction}
 						debounce={250}
 					/>
-					<nav style={{ borderTopLeftRadius: 0, borderTopRightRadius: 50, backgroundColor: '#2dbaed' }}>
+					<nav
+						style={{
+							borderTopLeftRadius: 0,
+							borderTopRightRadius: 50,
+							backgroundColor: "#2dbaed",
+						}}
+					>
 						<div className="nav-wrapper">
-							<a className="brand-logo" style={{ marginLeft: "3%", fontFamily:"fantasy" }}>
+							<a
+								className="brand-logo"
+								style={{ marginLeft: "3%", fontFamily: "fantasy" }}
+							>
 								Chaty
 							</a>
 							<ul id="nav-mobile" className="right hide-on-med-and-down">
@@ -363,7 +375,7 @@ class Chatbot extends Component {
 											border: "1px solid lightgrey",
 											borderTopRightRadius: 13,
 											borderBottomLeftRadius: 13,
-											backgroundColor: "#6a52e3"
+											backgroundColor: "#6a52e3",
 										}}
 										onClick={this.refreshPage}
 									>
@@ -384,8 +396,13 @@ class Chatbot extends Component {
 					</nav>
 					<div
 						id="chatbot"
-						style={{ height: 388, width: "100%", overflow: "auto", backgroundColor:"white",
-						overflowX:'hidden' }}
+						style={{
+							height: 388,
+							width: "100%",
+							overflow: "auto",
+							backgroundColor: "white",
+							overflowX: "hidden",
+						}}
 					>
 						{this.renderMessages(this.state.messages)}
 						<div
@@ -403,10 +420,15 @@ class Chatbot extends Component {
 								bottom: "0",
 								backgroundColor: "#603bbb",
 								borderBottomLeftRadius: 50,
-								 
 							}}
 						>
-							<input style={{color : "white", width : '90%', marginLeft : 28, marginBottom:15}}
+							<input
+								style={{
+									color: "white",
+									width: "90%",
+									marginLeft: 28,
+									marginBottom: 15,
+								}}
 								placeholder="type a message: "
 								type="text"
 								onKeyPress={this._handleInputKeyPress}
@@ -416,9 +438,8 @@ class Chatbot extends Component {
 					</div>
 				</div>
 			);
-		}
-		/**open but not logged*/
-		else if (
+		} else if (
+			/**open but not logged*/
 			this.state.showBot &&
 			this.state.isLogin === false &&
 			this.state.clickLogoutButton === false
@@ -439,9 +460,18 @@ class Chatbot extends Component {
 					}}
 					className="z-depth-3"
 				>
-					<nav style={{ borderTopLeftRadius: 0, borderTopRightRadius: 50, backgroundColor: '#2dbaed' }}>
+					<nav
+						style={{
+							borderTopLeftRadius: 0,
+							borderTopRightRadius: 50,
+							backgroundColor: "#2dbaed",
+						}}
+					>
 						<div className="nav-wrapper">
-							<a className="brand-logo" style={{ marginLeft: "3%", fontFamily:"fantasy" }}>
+							<a
+								className="brand-logo"
+								style={{ marginLeft: "3%", fontFamily: "fantasy" }}
+							>
 								Chaty
 							</a>
 							<ul id="nav-mobile" className="right hide-on-med-and-down">
@@ -463,18 +493,16 @@ class Chatbot extends Component {
 					/>
 				</div>
 			);
-		}
-		/**logout button is clicked*/
-		else if (this.state.clickLogoutButton) {
+		} else if (this.state.clickLogoutButton) {
+			/**logout button is clicked*/
 			return (
 				<div>
 					<Login logout={true} />
 					{this.resetLogout()}
 				</div>
 			);
-		}
-		/**just chatbot icon*/
-		else {
+		} else {
+			/**just chatbot icon*/
 			return (
 				<div>
 					<div

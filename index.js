@@ -15,6 +15,10 @@ require("./models/Demand");
 require("./models/Coupons");
 require("./models/Results");
 require("./models/Degrees");
+require("./models/Sports");
+require("./models/Faculties");
+require("./models/Payments");
+require("./models/StudentDetails");
 
 app.use(bodyParser.json());
 

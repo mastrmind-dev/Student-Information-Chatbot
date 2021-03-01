@@ -1,4 +1,5 @@
 import React from "react";
+import Linkify from "react-linkify";
 
 const Message = (props) => {
 	return (
@@ -10,7 +11,7 @@ const Message = (props) => {
 							<a
 								href="/"
 								className="btn-floating btn-large waves-effect waves-light blue"
-								style={{ color: "white", zIndex:1 }}
+								style={{ color: "white", zIndex: 1 }}
 							>
 								{props.speaks}
 							</a>
@@ -18,7 +19,7 @@ const Message = (props) => {
 						<div
 							className="col left"
 							style={{
-								marginTop: '19px',
+								marginTop: "19px",
 								marginRight: 10,
 								backgroundColor: "darkblue",
 								padding: 5,
@@ -31,7 +32,17 @@ const Message = (props) => {
 								maxWidth: "75%",
 							}}
 						>
-							<span className="white-text">{props.text}</span>
+							<span className="white-text">
+								<Linkify
+									componentDecorator={(decoratedHref, decoratedText, key) => (
+										<a target="blank" href={decoratedHref} key={key}>
+											{decoratedText}
+										</a>
+									)}
+								>
+									{props.text}
+								</Linkify>
+							</span>
 						</div>
 					</div>
 				)}
@@ -51,7 +62,7 @@ const Message = (props) => {
 						<div
 							className="col right"
 							style={{
-								marginTop: '20px',
+								marginTop: "20px",
 								marginLeft: 10,
 								textAlign: "right",
 								padding: 5,
