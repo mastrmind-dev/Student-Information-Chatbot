@@ -6,6 +6,7 @@ const studentSchema = new Schema({
     name: String,
     faculty: String,
     degree: String,
+    year: String,
 });
 
 mongoose.model("student", studentSchema);

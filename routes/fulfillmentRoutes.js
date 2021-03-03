@@ -41,8 +41,8 @@ module.exports = (app) => {
 			agent.add("Welcome to my snoopy fulfillment!");
 		}
 
-		sliceString = (numberOfSlicedCharacters) => {
-			let str = indexNo;
+		sliceString = (stringToSlice, numberOfSlicedCharacters) => {
+			let str = stringToSlice;
 			let newStr = str.slice(0, str.length - numberOfSlicedCharacters);
 			return newStr;
 		};
@@ -341,12 +341,13 @@ module.exports = (app) => {
 			console.log("executing studentDetails function...");
 			if (!(indexNo === null || indexNo === "a@a.lk")) {
 				await Student.findOne(
-					{ index_number: sliceString(5) },
+					{ index_number: sliceString(indexNo, 5) },
 					function (err, index_number) {
 						try {
 							nameOfTheStudent = index_number.name;
 							facultyOfTheStudent = index_number.faculty;
 							degreeOfTheStudent = index_number.degree;
+							yearOfTheStudent = index_number.year;
 
 							console.log("Successfully executed studentDetails function...");
 							console.log(``);
@@ -354,6 +355,7 @@ module.exports = (app) => {
 							console.log(`>>>>>>>> name: ${nameOfTheStudent}`);
 							console.log(`>>>>>>>> faculty: ${facultyOfTheStudent}`);
 							console.log(`>>>>>>>> degree: ${degreeOfTheStudent}`);
+							console.log(`>>>>>>>> year: ${yearOfTheStudent}`);
 						} catch (error) {
 							console.log(`An error occured...`);
 							console.log(`>>>>>>>> ${error}`);
@@ -362,6 +364,7 @@ module.exports = (app) => {
 							console.log(`>>>>>>>> name: ${nameOfTheStudent}`);
 							console.log(`>>>>>>>> faculty: ${facultyOfTheStudent}`);
 							console.log(`>>>>>>>> degree: ${degreeOfTheStudent}`);
+							console.log(`>>>>>>>> year: ${yearOfTheStudent}`);
 							console.log(``);
 						}
 					}
@@ -372,97 +375,167 @@ module.exports = (app) => {
 		async function sendEmails(agent) {
 			await studentDetails();
 			console.log(``)
-			console.log(`Meeting with ${agent.parameters.person[0].name}`)
-			if (agent.parameters.person[0].name === null) {
-				agent.add("Ask again mentioning whom you want to meet");
-			} else if (agent.parameters.person[0].name === "chancellor") {
-				console.log(`chancellor else if block is being executed...`)
-				var transporter = nodemailer.createTransport({
-					service: "gmail",
-					auth: {
-						user: "studentinformationbot@gmail.com",
-						pass: "fuckearth",
-					},
-				});
-
-				var mailOptions = {
-					from: "studentinformationbot@gmail.com",
-					to: "chancellor.v@yahoo.com",
-					subject: "Request an appointment with Vice Chancellor",
-					html: `<h3>Name: </h3><p>${nameOfTheStudent}</p><br>
-					<h3>Faculty: </h3><p>${facultyOfTheStudent}</p><br>
-					<h3>Degree: </h3><p>${degreeOfTheStudent}</p><br>
-					<h3>Year: </h3><p>${yearOfTheStudent}</p><br>
-					<h3>Reason for the appointment: </h3><p>${agent.parameters.reason}</p>`,
-				};
-
-				transporter.sendMail(mailOptions, function (error, info) {
-					if (error) {
-						console.log(error);
-					} else {
-						console.log("Email sent: " + info.response);
-					}
-				});
-			} else if (
-				agent.parameters.person[0].name === "dean" &&
-				agent.parameters.Faculty === "it"
-			) {
-				var transporter = nodemailer.createTransport({
-					service: "gmail",
-					auth: {
-						user: "studentinformationbot@gmail.com",
-						pass: "fuckearth",
-					},
-				});
-
-				var mailOptions = {
-					from: "studentinformationbot@gmail.com",
-					to: "dean.it@yahoo.com",
-					subject: "Request an appointment with Dean of faculty of IT",
-					html: `<h3>Name: </h3><p>${nameOfTheStudent}</p><br>
-					<h3>Faculty: </h3><p>${facultyOfTheStudent}</p><br>
-					<h3>Degree: </h3><p>${degreeOfTheStudent}</p><br>
-					<h3>Year: </h3><p>${yearOfTheStudent}</p><br>
-					<h3>Reason for the appointment: </h3><p>${agent.parameters.reason}</p>`,
-				};
-
-				transporter.sendMail(mailOptions, function (error, info) {
-					if (error) {
-						console.log(error);
-					} else {
-						console.log("Email sent: " + info.response);
-					}
-				});
-			} else if (
-				agent.parameters.person[0].name === "dean" &&
-				agent.parameters.Faculty === "engineering"
-			) {
-				var transporter = nodemailer.createTransport({
-					service: "gmail",
-					auth: {
-						user: "studentinformationbot@gmail.com",
-						pass: "fuckearth",
-					},
-				});
-
-				var mailOptions = {
-					from: "studentinformationbot@gmail.com",
-					to: "dean.engineer@yahoo.com",
-					subject: "Request an appointment with Dean of faculty of IT",
-					html: `<h3>Name: </h3><p>${nameOfTheStudent}</p><br>
-					<h3>Faculty: </h3><p>${facultyOfTheStudent}</p><br>
-					<h3>Degree: </h3><p>${degreeOfTheStudent}</p><br>
-					<h3>Year: </h3><p>${yearOfTheStudent}</p><br>
-					<h3>Reason for the appointment: </h3><p>${agent.parameters.reason}</p>`,
-				};
-
-				transporter.sendMail(mailOptions, function (error, info) {
-					if (error) {
-						console.log(error);
-					} else {
-						console.log("Email sent: " + info.response);
-					}
-				});
+			try {
+				console.log(`Meeting with ${agent.parameters.person[0].name}`)
+				if (agent.parameters.person[0].name === null) {
+					agent.add("Ask again mentioning whom you want to meet");
+				} else if (agent.parameters.person[0].name === "chancellor") {
+					console.log(`chancellor else if block is being executed...`)
+					var transporter = nodemailer.createTransport({
+						service: "gmail",
+						auth: {
+							user: "studentinformationbot@gmail.com",
+							pass: "fuckearth",
+						},
+					});
+	
+					var mailOptions = {
+						from: "studentinformationbot@gmail.com",
+						to: "chancellor.v@yahoo.com",
+						subject: "Request an appointment with Vice Chancellor",
+						html: `<h2>Name </h2><p>${nameOfTheStudent}</p><br>
+						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
+						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
+						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+					};
+	
+					transporter.sendMail(mailOptions, function (error, info) {
+						if (error) {
+							console.log(error);
+						} else {
+							console.log("Email sent: " + info.response);
+						}
+					});
+				} else if (
+					agent.parameters.person[0].name === "dean" &&
+					agent.parameters.Faculty === "it"
+				) {
+					var transporter = nodemailer.createTransport({
+						service: "gmail",
+						auth: {
+							user: "studentinformationbot@gmail.com",
+							pass: "fuckearth",
+						},
+					});
+	
+					var mailOptions = {
+						from: "studentinformationbot@gmail.com",
+						to: "dean.it@yahoo.com",
+						subject: "Request an appointment with Dean of faculty of IT",
+						html: `<h2>Name </h2><p>${nameOfTheStudent}</p><br>
+						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
+						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
+						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+					};
+	
+					transporter.sendMail(mailOptions, function (error, info) {
+						if (error) {
+							console.log(error);
+						} else {
+							console.log("Email sent: " + info.response);
+						}
+					});
+				} else if (
+					agent.parameters.person[0].name === "dean" &&
+					agent.parameters.Faculty === "engineering"
+				) {
+					var transporter = nodemailer.createTransport({
+						service: "gmail",
+						auth: {
+							user: "studentinformationbot@gmail.com",
+							pass: "fuckearth",
+						},
+					});
+	
+					var mailOptions = {
+						from: "studentinformationbot@gmail.com",
+						to: "dean.engineer@yahoo.com",
+						subject: "Request an appointment with Dean of faculty of engineering",
+						html: `<h2>Name </h2><p>${nameOfTheStudent}</p><br>
+						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
+						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
+						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
+						<h2>Requested date period </h2><p>From ${agent.parameters.week.startDate} To ${agent.parameters.week.endDate}</p>`,
+					};
+	
+					transporter.sendMail(mailOptions, function (error, info) {
+						if (error) {
+							console.log(error);
+						} else {
+							console.log("Email sent: " + info.response);
+						}
+					});
+				} else if (
+					agent.parameters.person[0].name === "dean" &&
+					agent.parameters.Faculty === "it"
+				) {
+					var transporter = nodemailer.createTransport({
+						service: "gmail",
+						auth: {
+							user: "studentinformationbot@gmail.com",
+							pass: "fuckearth",
+						},
+					});
+	
+					var mailOptions = {
+						from: "studentinformationbot@gmail.com",
+						to: "dean.it@yahoo.com",
+						subject: "Request an appointment with Dean of faculty of IT",
+						html: `<h2>Name </h2><p>${nameOfTheStudent}</p><br>
+						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
+						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
+						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+					};
+	
+					transporter.sendMail(mailOptions, function (error, info) {
+						if (error) {
+							console.log(error);
+						} else {
+							console.log("Email sent: " + info.response);
+						}
+					});
+				} else if (
+					agent.parameters.person[0].name === "dean" &&
+					agent.parameters.Faculty === "art"
+				) {
+					var transporter = nodemailer.createTransport({
+						service: "gmail",
+						auth: {
+							user: "studentinformationbot@gmail.com",
+							pass: "fuckearth",
+						},
+					});
+	
+					var mailOptions = {
+						from: "studentinformationbot@gmail.com",
+						to: "deanart.art@yahoo.com",
+						subject: "Request an appointment with Dean of faculty of art",
+						html: `<h2>Name </h2><p>${nameOfTheStudent}</p><br>
+						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
+						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
+						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+					};
+	
+					transporter.sendMail(mailOptions, function (error, info) {
+						if (error) {
+							console.log(error);
+						} else {
+							console.log("Email sent: " + info.response);
+						}
+					});
+				}
+			} catch (error) {
+				console.log(`an error occured!`);
+				console.log(`>>>>>>> ${error}`);
 			}
 		}
 
