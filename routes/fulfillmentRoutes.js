@@ -17,10 +17,14 @@ const Degree = mongoose.model("degree");
 const Sport = mongoose.model("sport");
 const Faculty = mongoose.model("faculty");
 const Payment = mongoose.model("payment");
-const StudentDetials = mongoose.model("studentDetails");
+const Student = mongoose.model("student");
 
 module.exports = (app) => {
-	var indexNo, nameOfTheStudent, facultyOfTheStudent, degreeOfTheStudent;
+	var indexNo,
+		nameOfTheStudent,
+		facultyOfTheStudent,
+		degreeOfTheStudent,
+		yearOfTheStudent;
 
 	app.post("/api/indexNo", async (req, res) => {
 		indexNo = req.body.indexNo;
@@ -334,17 +338,31 @@ module.exports = (app) => {
 		}
 
 		async function studentDetails() {
-			console.log("studentDetails function is started to execute...");
+			console.log("executing studentDetails function...");
 			if (!(indexNo === null || indexNo === "a@a.lk")) {
-				await StudentDetials.findOne(
-					{ IndexNo: sliceString(5) },
-					function (err, IndexNo) {
+				await Student.findOne(
+					{ index_number: sliceString(5) },
+					function (err, index_number) {
 						try {
-							nameOfTheStudent = IndexNo.Name;
-							facultyOfTheStudent = IndexNo.Faculty;
-							degreeOfTheStudent = IndexNo.Degree;
+							nameOfTheStudent = index_number.name;
+							facultyOfTheStudent = index_number.faculty;
+							degreeOfTheStudent = index_number.degree;
+
+							console.log("Successfully executed studentDetails function...");
+							console.log(``);
+							console.log("Results-:");
+							console.log(`>>>>>>>> name: ${nameOfTheStudent}`);
+							console.log(`>>>>>>>> faculty: ${facultyOfTheStudent}`);
+							console.log(`>>>>>>>> degree: ${degreeOfTheStudent}`);
 						} catch (error) {
-							console.log(error);
+							console.log(`An error occured...`);
+							console.log(`>>>>>>>> ${error}`);
+							console.log(``);
+							console.log(`Results-:`);
+							console.log(`>>>>>>>> name: ${nameOfTheStudent}`);
+							console.log(`>>>>>>>> faculty: ${facultyOfTheStudent}`);
+							console.log(`>>>>>>>> degree: ${degreeOfTheStudent}`);
+							console.log(``);
 						}
 					}
 				);
@@ -352,28 +370,100 @@ module.exports = (app) => {
 		}
 
 		async function sendEmails(agent) {
-			var transporter = nodemailer.createTransport({
-				service: "gmail",
-				auth: {
-					user: "studentinformationbot@gmail.com",
-					pass: "fuckearth",
-				},
-			});
+			await studentDetails();
+			console.log(``)
+			console.log(`Meeting with ${agent.parameters.person[0].name}`)
+			if (agent.parameters.person[0].name === null) {
+				agent.add("Ask again mentioning whom you want to meet");
+			} else if (agent.parameters.person[0].name === "chancellor") {
+				console.log(`chancellor else if block is being executed...`)
+				var transporter = nodemailer.createTransport({
+					service: "gmail",
+					auth: {
+						user: "studentinformationbot@gmail.com",
+						pass: "fuckearth",
+					},
+				});
 
-			var mailOptions = {
-				from: "studentinformationbot@gmail.com",
-				to: "asapthaka@gmail.com",
-				subject: "Sending Email using Node.js",
-				text: "That was easy!",
-			};
+				var mailOptions = {
+					from: "studentinformationbot@gmail.com",
+					to: "chancellor.v@yahoo.com",
+					subject: "Request an appointment with Vice Chancellor",
+					html: `<h3>Name: </h3><p>${nameOfTheStudent}</p><br>
+					<h3>Faculty: </h3><p>${facultyOfTheStudent}</p><br>
+					<h3>Degree: </h3><p>${degreeOfTheStudent}</p><br>
+					<h3>Year: </h3><p>${yearOfTheStudent}</p><br>
+					<h3>Reason for the appointment: </h3><p>${agent.parameters.reason}</p>`,
+				};
 
-			transporter.sendMail(mailOptions, function (error, info) {
-				if (error) {
-					console.log(error);
-				} else {
-					console.log("Email sent: " + info.response);
-				}
-			});
+				transporter.sendMail(mailOptions, function (error, info) {
+					if (error) {
+						console.log(error);
+					} else {
+						console.log("Email sent: " + info.response);
+					}
+				});
+			} else if (
+				agent.parameters.person[0].name === "dean" &&
+				agent.parameters.Faculty === "it"
+			) {
+				var transporter = nodemailer.createTransport({
+					service: "gmail",
+					auth: {
+						user: "studentinformationbot@gmail.com",
+						pass: "fuckearth",
+					},
+				});
+
+				var mailOptions = {
+					from: "studentinformationbot@gmail.com",
+					to: "dean.it@yahoo.com",
+					subject: "Request an appointment with Dean of faculty of IT",
+					html: `<h3>Name: </h3><p>${nameOfTheStudent}</p><br>
+					<h3>Faculty: </h3><p>${facultyOfTheStudent}</p><br>
+					<h3>Degree: </h3><p>${degreeOfTheStudent}</p><br>
+					<h3>Year: </h3><p>${yearOfTheStudent}</p><br>
+					<h3>Reason for the appointment: </h3><p>${agent.parameters.reason}</p>`,
+				};
+
+				transporter.sendMail(mailOptions, function (error, info) {
+					if (error) {
+						console.log(error);
+					} else {
+						console.log("Email sent: " + info.response);
+					}
+				});
+			} else if (
+				agent.parameters.person[0].name === "dean" &&
+				agent.parameters.Faculty === "engineering"
+			) {
+				var transporter = nodemailer.createTransport({
+					service: "gmail",
+					auth: {
+						user: "studentinformationbot@gmail.com",
+						pass: "fuckearth",
+					},
+				});
+
+				var mailOptions = {
+					from: "studentinformationbot@gmail.com",
+					to: "dean.engineer@yahoo.com",
+					subject: "Request an appointment with Dean of faculty of IT",
+					html: `<h3>Name: </h3><p>${nameOfTheStudent}</p><br>
+					<h3>Faculty: </h3><p>${facultyOfTheStudent}</p><br>
+					<h3>Degree: </h3><p>${degreeOfTheStudent}</p><br>
+					<h3>Year: </h3><p>${yearOfTheStudent}</p><br>
+					<h3>Reason for the appointment: </h3><p>${agent.parameters.reason}</p>`,
+				};
+
+				transporter.sendMail(mailOptions, function (error, info) {
+					if (error) {
+						console.log(error);
+					} else {
+						console.log("Email sent: " + info.response);
+					}
+				});
+			}
 		}
 
 		let intentMap = new Map();

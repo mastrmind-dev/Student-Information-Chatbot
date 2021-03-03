@@ -18,7 +18,7 @@ require("./models/Degrees");
 require("./models/Sports");
 require("./models/Faculties");
 require("./models/Payments");
-require("./models/StudentDetails");
+require("./models/Students");
 
 app.use(bodyParser.json());
 
