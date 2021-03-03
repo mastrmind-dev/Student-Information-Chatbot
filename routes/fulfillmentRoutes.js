@@ -133,6 +133,7 @@ module.exports = (app) => {
 							);
 						} else {
 							agent.add("Invalid year or semester!");
+							console.log(`>>>>>>>> ${error}`);
 						}
 					}
 				}
@@ -337,6 +338,24 @@ module.exports = (app) => {
 			);
 		}
 
+		async function payments(agent) {
+			await Payment.findOne(
+				{ index_number: sliceString(indexNo, 5) },
+				function (err, index_number) {
+					console.log(index_number)
+					try {
+						agent.add("Here is your payment statement.");
+						agent.add(index_number.payment_details);
+					} catch (error) {
+						console.log(``);
+						console.log(`An error occrured!`);
+						console.log(`>>>>>>>> ${error}`);
+						console.log(``);
+					}
+				}
+			);
+		}
+
 		async function studentDetails() {
 			console.log("executing studentDetails function...");
 			if (!(indexNo === null || indexNo === "a@a.lk")) {
@@ -374,13 +393,13 @@ module.exports = (app) => {
 
 		async function sendEmails(agent) {
 			await studentDetails();
-			console.log(``)
+			console.log(``);
 			try {
-				console.log(`Meeting with ${agent.parameters.person[0].name}`)
+				console.log(`Meeting with ${agent.parameters.person[0].name}`);
 				if (agent.parameters.person[0].name === null) {
 					agent.add("Ask again mentioning whom you want to meet");
 				} else if (agent.parameters.person[0].name === "chancellor") {
-					console.log(`chancellor else if block is being executed...`)
+					console.log(`chancellor else if block is being executed...`);
 					var transporter = nodemailer.createTransport({
 						service: "gmail",
 						auth: {
@@ -388,7 +407,7 @@ module.exports = (app) => {
 							pass: "fuckearth",
 						},
 					});
-	
+
 					var mailOptions = {
 						from: "studentinformationbot@gmail.com",
 						to: "chancellor.v@yahoo.com",
@@ -397,10 +416,15 @@ module.exports = (app) => {
 						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
 						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
 						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
-						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
-						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${
+							agent.parameters.reason
+						}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(
+							agent.parameters.week.startDate,
+							15
+						)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
 					};
-	
+
 					transporter.sendMail(mailOptions, function (error, info) {
 						if (error) {
 							console.log(error);
@@ -419,7 +443,7 @@ module.exports = (app) => {
 							pass: "fuckearth",
 						},
 					});
-	
+
 					var mailOptions = {
 						from: "studentinformationbot@gmail.com",
 						to: "dean.it@yahoo.com",
@@ -428,10 +452,15 @@ module.exports = (app) => {
 						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
 						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
 						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
-						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
-						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${
+							agent.parameters.reason
+						}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(
+							agent.parameters.week.startDate,
+							15
+						)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
 					};
-	
+
 					transporter.sendMail(mailOptions, function (error, info) {
 						if (error) {
 							console.log(error);
@@ -450,11 +479,12 @@ module.exports = (app) => {
 							pass: "fuckearth",
 						},
 					});
-	
+
 					var mailOptions = {
 						from: "studentinformationbot@gmail.com",
 						to: "dean.engineer@yahoo.com",
-						subject: "Request an appointment with Dean of faculty of engineering",
+						subject:
+							"Request an appointment with Dean of faculty of engineering",
 						html: `<h2>Name </h2><p>${nameOfTheStudent}</p><br>
 						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
 						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
@@ -462,7 +492,7 @@ module.exports = (app) => {
 						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
 						<h2>Requested date period </h2><p>From ${agent.parameters.week.startDate} To ${agent.parameters.week.endDate}</p>`,
 					};
-	
+
 					transporter.sendMail(mailOptions, function (error, info) {
 						if (error) {
 							console.log(error);
@@ -481,7 +511,7 @@ module.exports = (app) => {
 							pass: "fuckearth",
 						},
 					});
-	
+
 					var mailOptions = {
 						from: "studentinformationbot@gmail.com",
 						to: "dean.it@yahoo.com",
@@ -490,10 +520,15 @@ module.exports = (app) => {
 						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
 						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
 						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
-						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
-						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${
+							agent.parameters.reason
+						}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(
+							agent.parameters.week.startDate,
+							15
+						)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
 					};
-	
+
 					transporter.sendMail(mailOptions, function (error, info) {
 						if (error) {
 							console.log(error);
@@ -512,7 +547,7 @@ module.exports = (app) => {
 							pass: "fuckearth",
 						},
 					});
-	
+
 					var mailOptions = {
 						from: "studentinformationbot@gmail.com",
 						to: "deanart.art@yahoo.com",
@@ -521,10 +556,15 @@ module.exports = (app) => {
 						<h2>Faculty </h2><p>${facultyOfTheStudent}</p><br>
 						<h2>Degree </h2><p>${degreeOfTheStudent}</p><br>
 						<h2>Year </h2><p>${yearOfTheStudent}</p><br>
-						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${agent.parameters.reason}</p><br>
-						<h2>Requested date period </h2><p>From ${sliceString(agent.parameters.week.startDate, 15)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
+						<h2>Reason for the appointment </h2><p style="text-transform:capitalize;">${
+							agent.parameters.reason
+						}</p><br>
+						<h2>Requested date period </h2><p>From ${sliceString(
+							agent.parameters.week.startDate,
+							15
+						)} To ${sliceString(agent.parameters.week.endDate, 15)}</p>`,
 					};
-	
+
 					transporter.sendMail(mailOptions, function (error, info) {
 						if (error) {
 							console.log(error);
@@ -561,7 +601,7 @@ module.exports = (app) => {
 		//fulfillment configuration for sending emails
 		intentMap.set("SendEmailsForAppointment", sendEmails);
 		//fulfillment configuration for payments
-		//	intentMap.set("payments", payments);
+		intentMap.set("payments", payments);
 
 		agent.handleRequest(intentMap);
 	});
